@@ -14,7 +14,7 @@ source $path/vars.sh
 
 
 help() {
-    echo 'Usage: run.sh start|stop server|app'
+    echo 'Usage: run.sh start|stop server|app init'
 }
 
 
@@ -44,8 +44,15 @@ mongo () {
 
 #--add-host outside:172.17.0.1
 tornado (){
-    gnome-terminal -- docker run -it --name $tornado_run --network $subnet -p 8000:8000 -v $tornado_chroot:/usr/src/app -w /usr/src/app $tornado_docker python server.py
+    gnome-terminal -- docker run -it --name $tornado_run --network $subnet -p 8000:8000 -v $tornado_chroot:/usr/src/app -w /usr/src/app $tornado_docker bash ./run.sh
 }
+
+
+mongo_init(){
+    echo "Run command"
+    echo 'docker exec -ti '$mongo_run' sh -c "cd /;mongo < init.js"'
+}
+
 
 
 if [ "$1" == "start" ];then
@@ -56,6 +63,9 @@ if [ "$1" == "start" ];then
         nginx
         mongo
         watch
+        if [ "$3" == "init" ];then
+            mongo_init
+        fi
     elif [ "$2" == "app" ];then
         echo -e "Run app"
         docker stop $tornado_run &>/dev/null

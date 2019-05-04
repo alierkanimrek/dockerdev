@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 nginx=$path/nginx
 nginx_docker=rp_nginx
 nginx_run=rp_nginx.server
@@ -7,7 +8,7 @@ nginx_chroot=$path/nginx_root
 nginx_root=/usr/share/nginx/html
 nginx_logs='docker logs '$nginx_run
 
-network_logs='docker network inspect rplexus-net|grep IPv4 -B 3'
+network_logs='docker network inspect my-net|grep IPv4 -B 3'
 
 tornado=$path/tornado
 tornado_docker=rp_tornado
@@ -22,4 +23,6 @@ mongo_chroot=$path/mongo_db
 mongo_root=/data/db
 mongo_logs='docker logs '$mongo_run 
 
-subnet=rplexus-net
+subnet=my-net
+
+rpserver=$path/../rpserver/src

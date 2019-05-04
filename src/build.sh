@@ -22,3 +22,4 @@ cd ..
 docker network create $subnet
 echo .
 docker network inspect $subnet|grep Subnet
+
