@@ -38,13 +38,16 @@ nginx () {
 }
 
 mongo () {
+    echo
     docker run --name $mongo_run -d --network $subnet -p 27017:27017 -v $mongo_chroot:$mongo_root $mongo_docker
 }
 
 
 #--add-host outside:172.17.0.1
 tornado (){
+    echo
     gnome-terminal -- docker run -it --name $tornado_run --network $subnet -p 8000:8000 -v $tornado_chroot:/usr/src/app -w /usr/src/app $tornado_docker bash ./run.sh
+    echo "docker exec -it " $tornado_run " /bin/bash"
 }
 
 
@@ -72,7 +75,8 @@ if [ "$1" == "start" ];then
         docker rm $tornado_run &>/dev/null
         tornado
     else
-        help
+        ./run.sh start server
+    ./run.sh start app
     fi
 
 elif [ "$1" == "stop" ];then
@@ -85,7 +89,8 @@ elif [ "$1" == "stop" ];then
         docker stop --time 1 $tornado_run &>/dev/null
         docker rm $tornado_run &>/dev/null
     else
-        help
+        ./run.sh stop app
+    ./run.sh stop server
     fi
 
 else

@@ -1,6 +1,5 @@
 import tornado.ioloop
 import tornado.web
-from tornado import gen
 import motor
 
 
@@ -8,10 +7,11 @@ import motor
 
 class MainHandler(tornado.web.RequestHandler):
 
-    @gen.coroutine
-    def get(self):
+    
+    async def get(self):
+        # You should check ip adress from your docker sub-network
         client = motor.MotorClient(host='172.18.0.3', port=27017)
-        info = yield client.server_info()
+        info = await client.server_info()
         self.write("<h2>Hello world</h2>")
         self.write("<h3>MongoDB</h3>")
         for item in info.items():
