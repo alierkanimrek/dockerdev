@@ -3,6 +3,7 @@
 
 #### Requirements
 * Bash
+* Openssl
 * Docker
 * Gnome-terminal, scripts tested in Ubuntu system.
 
@@ -71,4 +72,4 @@ docker exec -it <prjname>_nginx.server /bin/bash
 docker exec -it <prjname>_tornado.server /bin/bash
 docker exec -it <prjname>_mongo.server /bin/bash
 ```
-> <prjname> is you wrote project name in vars.sh "name" value.
+> < prjname > is you wrote project name in vars.sh "name" value.
